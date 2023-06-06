@@ -9,36 +9,133 @@ def registerACamperWindow():
     newWin.geometry("750x600")
     newWin.maxsize(width=750, height=600)
     newWin.minsize(width=750, height=600)
-
-    #GRIDDING
+        
+    #I added a lot of labelframes so that if I don't see that the menu looks good, I can easily adjust positions and change the menu
+    
+    #WIDGETS
     first_frame = LabelFrame(main2, text="Camper's personal information", relief="sunken")
 
+    #First name label 
+    first_name_label_frame = LabelFrame(first_frame, relief="flat")
+    first_name = Label(first_name_label_frame, text="First name: ")
+    firstNameEntryVar = StringVar()
+    first_name_entry = Entry(first_name_label_frame, width=30)
 
-    first_name = Label(first_frame, text="First name")
-    first_name_entry_var = StringVar()
-    first_name_entry = Entry(first_frame, width=30)
+    #Second name label
+    last_name_label_frame = LabelFrame(first_frame, relief="flat")
+    last_name = Label(last_name_label_frame, text="Last name: ")
+    lastNameEntryVar = StringVar()
+    last_name_entry = Entry(last_name_label_frame, width=30)
 
-    last_name = Label(first_frame, text="Last name")
-    last_name_entry_var = StringVar()
-    last_name_entry = Entry(first_frame, width=30)
 
-    sex_label = Label(first_frame)
+    #Sex select
+    Soption_frame = LabelFrame(first_frame, relief="sunken")
+    sex_option_label = Label(Soption_frame, text="Sex:")
+
+    maleOrFemaleOrOther = StringVar()
+    maleOrFemaleOrOther.set("Male")
+    male_radio_button = Radiobutton(Soption_frame, variable=maleOrFemaleOrOther, value="Male", text="Male")
+    female_radio_button = Radiobutton(Soption_frame, variable=maleOrFemaleOrOther, value="Female", text="Female")
+    other_radio_button = Radiobutton(Soption_frame, variable=maleOrFemaleOrOther, value="Other", text="Other")
+
+    #DateofBirth
+    doption_frame = LabelFrame(first_frame, relief="flat")
+    date_of_birth_label = Label(doption_frame, text="Date of birth:")
+    tiny_y_label = Label(doption_frame, text="Y:")
+    tiny_y_entry = Entry(doption_frame, width=5)
+    tiny_m_label = Label(doption_frame, text="M:")
+    tiny_m_entry = Entry(doption_frame, width=5)
+    tiny_d_label = Label(doption_frame, text="D:")
+    tiny_d_entry = Entry(doption_frame, width=5)
+
+    #Age 
+    age_frame = LabelFrame(first_frame, relief="flat")
+    age_label = Label(age_frame, text="Age:")
+    ageVal = IntVar()
+    ageVal.set(0)
+    ageScaler = Scale(age_frame, from_= 0, to=100, orient=HORIZONTAL, variable=ageVal, width=20, length=200, showvalue=False)
+    age_display = Label(age_frame, textvariable=ageVal, width=6, bg="#ffffff", relief="sunken") 
+
+    
+    #Phonenumber
+    contact_labelframe = LabelFrame(first_frame, relief="flat")
+    phone_num_label = Label(contact_labelframe, text="Phone Number:")
+    phone_num_entry = Entry(contact_labelframe, width=30)
+    work_num_label = Label(contact_labelframe, text="Work Number:")
+    work_num_entry = Entry(contact_labelframe, width=30)
+
+
+    #Medical info 
+    medicalinfo_labelframe = LabelFrame(first_frame, relief="flat", text="Medical information")
+    detailsOfMedIssue = StringVar()
+    detailsOfMedIssue.set("")
+    details_entry = Entry(medicalinfo_labelframe, textvariable=detailsOfMedIssue, width=50)
+
+    #Register and Cancel widget
+    register_button = Button(main2, text="Register")
+    cancel_button = Button(main2, text="Cancel")
+
+
+
+    #GRIDDING
     main2.grid(padx=50, pady=50)
+    #First frame
+    first_frame.grid(row=1, column=1, padx=30, pady=30, ipadx=20, ipady=30)
 
-    #First frame 
-    first_frame.grid(row=1, column=1, padx=30, pady=30, ipadx=30, ipady=30)
-
+    ###First name label frame
+    first_name_label_frame.grid(row=1, column=1, pady=10)#FRAME FOR BOTH WIDS
     first_name.grid(row=1, column=1)
-    first_name_entry.grid(row=1, column=2)
+    first_name_entry.grid(row=1, column=2, pady=10)
 
-    last_name.grid(row=1, column=3, sticky=E)
-    last_name_entry.grid(row=1, column=4, sticky=E)
+    ###Last name label frame
+    last_name_label_frame.grid(row=1, column=2)#FRAME FOR BOTH WIDS
+    last_name.grid(row=1, column=1)
+    last_name_entry.grid(row=1, column=2)
+
+    ###Male or female label frame
+    Soption_frame.grid(row=3, column=1, columnspan=2, sticky=W, pady=5, padx=20)
+    sex_option_label.grid(row=1, column=1)
+    male_radio_button.grid(row=1, column=2)
+    female_radio_button.grid(row=1, column=3)
+    other_radio_button.grid(row=1, column=4)
+
+    ###Date
+    doption_frame.grid(row=4, column=1, pady=10, sticky=W)
+    date_of_birth_label.grid(row=1, column=1)
+    tiny_y_label.grid(row=1, column=2)
+    tiny_y_entry.grid(row=1, column=3)
+    tiny_m_label.grid(row=1, column=4)
+    tiny_m_entry.grid(row=1, column=5)
+    tiny_d_label.grid(row=1, column=6)
+    tiny_d_entry.grid(row=1, column=7)
+
+    #Age
+    age_frame.grid(row=4, column=2)
+    age_label.grid(row=1, column=8)
+    age_display.grid(row=1, column=9)
+    ageScaler.grid(row=1, column=10)
+
+
+    #Phone number
+    contact_labelframe.grid(row=5, column=1, columnspan=2, pady=10, sticky=W)
+    phone_num_label.grid(row=1, column=1)
+    phone_num_entry.grid(row=1, column=2)
+    work_num_label.grid(row=1, column=3)
+    work_num_entry.grid(row=1, column=4)
+
+    #Medical info
+    medicalinfo_labelframe.grid(row=6, column=1, columnspan=2, sticky=W)
+    details_entry.grid(row=1, column=1, rowspan=1)#Ask the teacher on how you can make a gigantic entry here, without the use of ipady because you need a lot of writing space.
+
+    #Regiser button
+    register_button.grid(row=2, column=1, sticky=E)
+    cancel_button.grid(row=2, column=2, sticky=E)
     newWin.grab_set()
 
     newWin.mainloop()
     
 
-    
+
     
     
 def findACamperWindow():
@@ -53,38 +150,52 @@ def findACamperWindow():
     search_bar_entry = Entry(main3, textvariable=searchVar, width=70)
     
     def updateMegalist(event):
-        print("UPDATED")
-        global Camper
+        
+        global CamperList#is this even necessary
         newList = []
         wordsTyped = searchVar.get()
-        newList.clear()
+
+        mega_listbox_of_all_people.delete(0, END)
         if wordsTyped == "":
-            wordsTyped = searchVar.get()
-        for i in range(0, len(Camper)):
-            wordInName = False
-            for j in range(0, len(wordsTyped)):
-                try:
-                    if Camper[i][j].lower() == wordsTyped[j].lower():
-                        wordInName = True
-                        break
-                    elif Camper[i][j].lower() != wordsTyped[j].lower():
-                        wordInName = False
-                        break
-                except:
-                    print("Exceed")
-            
-            if wordInName == True:
-                newList.append(Camper[i])
+            megaList.set(CamperList)
+        else:
+            #DISABLED BECAUSE IT'S CONSIDERED A BACKUP
+            #for i in range(0, len(CamperList)): 
+            #    if wordsTyped.lower() in CamperList[i].lower():
+            #        newList.append(CamperList[i])
+            for i in range(0, len(CamperList)):
+                points = 0
+                for j in range(0, len(wordsTyped)):
+                    
+                    try: #Try is used because since you're going to use the loop length of the wordstyped into the entrybox, it would be extremely wise to ensure that you would not
+                        letter = wordsTyped[j].lower()
+                        nameLetter = CamperList[i][j].lower()
+                        if letter == nameLetter:#Camper name, and then camper's very first letter
+                            print(wordsTyped[j], CamperList[i][j])
+                            points += 1
+                            print(f'POINTS: {points}')
+                        Check = True
+                    except:
+                        print(f"SKIPPED THE WORD {CamperList[i]}")
+                        Check = False#Don't even bother lol
+                
+                if Check == True and points == len(wordsTyped):
+                    newList.append(CamperList[i])#ADDED THE WORD 
+                    print(f"ADDED THE NAME: {CamperList[i]}")
+
+
+            megaList.set(newList)
+        
                     
                     
                         
         
-        megaList.set(newList)
+        
                 
-    search_bar_entry.bind('<Key>', updateMegalist)
+    search_bar_entry.bind('<KeyRelease>', updateMegalist)
     #Megalist
     megaList = StringVar()
-    megaList.set(Camper)
+    megaList.set(CamperList)
     mega_listbox_of_all_people = Listbox(main3, listvariable=megaList, selectmode=SINGLE, width=70, height=30)
 
     #See more button
@@ -106,18 +217,21 @@ def findACamperWindow():
 
 
     newWin.mainloop()
+
 def callback():
     
-    if askokcancel("Quit", "Do you really wish to quit the program?"):
-        root.destroy()
+        #if askokcancel("Quit", "Do you really wish to quit the program?"):
+    root.destroy()
     
 
 #MAIN
 #All global list variables
 
+
+
 global dateForCamper
-global Camper
-Camper = ["Hendrick", "Louie", "Gob", "Bos", "Los", "Ass", "Pass", "Name"]
+global CamperList
+CamperList = ["Ga", "Gab", "Gabc", "Gabcd", "Gabcde"]
 
 root = Tk()
 mainframe = Frame(root)
@@ -164,7 +278,7 @@ right_arrow_button = Button(calendar_frame, text="Next day", image=right_arrow_i
 
 #List of all registered campers
 listOfAllPToday = StringVar()
-listOfAllPToday.set(Camper)
+listOfAllPToday.set(CamperList)
 
 schedule_list_box = Listbox(calendar_frame, listvariable=listOfAllPToday, selectmode=SINGLE, width=55, font="Arial 10", height=20)
 
@@ -201,4 +315,3 @@ right_arrow_button.grid(row=1, column=3, sticky=E, ipadx=20, ipady=10)
 
 schedule_list_box.grid(row=2, column=1, columnspan=3)
 root.mainloop()
-
