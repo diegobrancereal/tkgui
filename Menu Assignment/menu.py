@@ -126,16 +126,59 @@ def registerACamperWindow():
     #Medical info
     medicalinfo_labelframe.grid(row=6, column=1, columnspan=2, sticky=W)
     details_entry.grid(row=1, column=1, rowspan=1)#Ask the teacher on how you can make a gigantic entry here, without the use of ipady because you need a lot of writing space.
+    
 
-    #Regiser button
+    #Second frame
+    second_frame = LabelFrame(main2, relief="sunken")
+
+    #Campsite
+    campsite_label = Label(second_frame, text="Campsite")
+    campsites = ["Genizadien", "Raziadien", "Phasmacosa"]
+    campsiteList = StringVar()
+    campsiteList.set("Genizadien")
+    campsite_Location = Spinbox(second_frame, textvariable=campsiteList, values=campsiteList)
+
+    exact_location_label = Label(second_frame, text="Campsite")
+    exact_location_string = StringVar()
+    exact_location_entry_box = Entry(second_frame, textvariable=exact_location_string)
+
+
+    #Activity
+    activity_label = Label(second_frame, text="Activity")
+
+    radio_button_activity_value = StringVar()
+
+    mountain_hiking_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Mountain hiking", text="Mountain hiking")
+
+    camping_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Camping", text="Camping")
+
+    kayaking_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Kayaking", text="Kayaking")
+
+    fishing_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Fishing", text="Fishing")
+
+    horseback_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Horseback riding", text="Horseback riding")
+
+    dirt_road_biking_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Dirt road biking", text="Dirt road biking")
+
+    archery_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Archery", text="Archery")
+
+    rockclimbing_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Rockclimbing", text="Rockclimbing")
+
+    stargazing_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Stargazing", text="Stargazing")
+
+    bird_watching = Radiobutton(second_frame, variable=radio_button_activity_value, value="Bird watching", text="Bird watching")
+
+
+    description_label = Label(second_frame, text="Description")
+
+
+    #Register button
     register_button.grid(row=2, column=1, sticky=E)
     cancel_button.grid(row=2, column=2, sticky=E)
     newWin.grab_set()
 
     newWin.mainloop()
     
-
-
     
     
 def findACamperWindow():
@@ -160,9 +203,9 @@ def findACamperWindow():
             megaList.set(CamperList)
         else:
             #DISABLED BECAUSE IT'S CONSIDERED A BACKUP
-            #for i in range(0, len(CamperList)): 
-            #    if wordsTyped.lower() in CamperList[i].lower():
-            #        newList.append(CamperList[i])
+            """for i in range(0, len(CamperList)): 
+                   if wordsTyped.lower() in CamperList[i].lower():
+                   newList.append(CamperList[i])"""
             for i in range(0, len(CamperList)):
                 points = 0
                 for j in range(0, len(wordsTyped)):
@@ -231,7 +274,7 @@ def callback():
 
 global dateForCamper
 global CamperList
-CamperList = ["Ga", "Gab", "Gabc", "Gabcd", "Gabcde"]
+CamperList = ["Ga", "Gab", "Gabc", "Gabcd", "Gabcde", "Henry", "Gabbie", "Hesun"]
 
 root = Tk()
 mainframe = Frame(root)
