@@ -43,13 +43,69 @@ def registerACamperWindow():
     
 def findACamperWindow():
     newWin = Toplevel()
+    main3 = Frame(newWin)
+    newWin.title("List of campers")
+    newWin.geometry("750x600")
     
+    search_bar_label = Label(main3, text="Search bar")
+    searchVar = StringVar()
+    searchVar.set("")
+    search_bar_entry = Entry(main3, textvariable=searchVar, width=70)
+    
+    def updateMegalist(event):
+        print("UPDATED")
+        global Camper
+        newList = []
+        wordsTyped = searchVar.get()
+        newList.clear()
+        if wordsTyped == "":
+            wordsTyped = searchVar.get()
+        for i in range(0, len(Camper)):
+            wordInName = False
+            for j in range(0, len(wordsTyped)):
+                try:
+                    if Camper[i][j].lower() == wordsTyped[j].lower():
+                        wordInName = True
+                        break
+                    elif Camper[i][j].lower() != wordsTyped[j].lower():
+                        wordInName = False
+                        break
+                except:
+                    print("Exceed")
+            
+            if wordInName == True:
+                newList.append(Camper[i])
+                    
+                    
+                        
+        
+        megaList.set(newList)
+                
+    search_bar_entry.bind('<Key>', updateMegalist)
+    #Megalist
+    megaList = StringVar()
+    megaList.set(Camper)
+    mega_listbox_of_all_people = Listbox(main3, listvariable=megaList, selectmode=SINGLE, width=70, height=30)
+
+    #See more button
+    see_more_button = Button(main3, text="See more", width=20, height=3)
+
+    #GRID
+    main3.grid(padx=30, pady=30)
+    #Search bar widgets
+    search_bar_label.grid(row=0, column=1, sticky=W)
+    search_bar_entry.grid(row=1, column=1)
+
+    #Mega listbox
+    mega_listbox_of_all_people.grid(row=2, column=1, rowspan=5)
+
+    #See more
+    see_more_button.grid(row=2, column=2, padx=30)
     newWin.grab_set()
 
 
 
     newWin.mainloop()
-
 def callback():
     
     if askokcancel("Quit", "Do you really wish to quit the program?"):
@@ -58,8 +114,10 @@ def callback():
 
 #MAIN
 #All global list variables
+
 global dateForCamper
-Camper = ["Hendrick", "Louie", "Gob"]
+global Camper
+Camper = ["Hendrick", "Louie", "Gob", "Bos", "Los", "Ass", "Pass", "Name"]
 
 root = Tk()
 mainframe = Frame(root)
@@ -84,7 +142,7 @@ right_arrow_image = ImageTk.PhotoImage(flipped_left)
 #Buttons 
 register_a_camper_button = Button(mainframe, text="Register a camper", width=20, height=3, command=registerACamperWindow)
 
-find_a_camper_button = Button(mainframe, text="Find a camper", width=20, height=3)
+find_a_camper_button = Button(mainframe, text="Find a camper", width=20, height=3, command=findACamperWindow)
 
 see_list_of_activities_button = Button(mainframe, text="See list of activites", width=20, height=3)
 
