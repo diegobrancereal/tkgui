@@ -11,9 +11,9 @@ def registerACamperWindow():
     #Basics
     newWin = Toplevel()
     main2 = Frame(newWin)
-    newWin.geometry("750x800")
-    newWin.maxsize(width=750, height=800)
-    newWin.minsize(width=750, height=800)
+    newWin.geometry("750x400")
+    newWin.maxsize(width=750, height=490)
+    newWin.minsize(width=750, height=490)
         
     #I added a lot of labelframes so that if I don't see that the menu looks good, I can easily adjust positions and change the menu
     
@@ -72,8 +72,8 @@ def registerACamperWindow():
     details_entry = Entry(medicalinfo_labelframe, textvariable=detailsOfMedIssue, width=50)
 
     #Register and Cancel widget
-    register_button = Button(main2, text="Register")
-    cancel_button = Button(main2, text="Cancel")
+    register_button = Button(main2, text="Register", width=20, height=3)
+    cancel_button = Button(main2, text="Cancel", width=20, height=3)
 
 
     #Campsite
@@ -93,20 +93,6 @@ def registerACamperWindow():
     cabin_number = IntVar()
     cabin_number.set(1)
     cabin_number_spinbox = Spinbox(campsite_frame, textvariable=cabin_number, values=cabin_list_of_num)
-
-    #Unit number
-    unit_label = Label(campsite_frame, text="Unit")
-    unit_list_of_num = []
-    for i in range(1, 31):
-        unit_list_of_num.append(i)
-
-    unit_number = IntVar()
-    unit_number.set(1)
-    unit_number_spinbox = Spinbox(campsite_frame, textvariable=unit_number, values=unit_list_of_num)
-
-
-
-
 
 
     #GRIDDING FOR FRIST FRAME
@@ -157,10 +143,6 @@ def registerACamperWindow():
     #Cabin
     cabin_label.grid(row=2, column=2)
     cabin_number_spinbox.grid(row=3, column=2)
-    #Unit
-    unit_label.grid(row=2, column=3)
-    unit_number_spinbox.grid(row=3, column=3)
-
 
     #Medical info
     medicalinfo_labelframe.grid(row=5, column=1, columnspan=2, sticky=W)
@@ -174,10 +156,23 @@ def registerACamperWindow():
 
 
 
+    #BUTTONS THAT ARE COMPLETELY OUT OF THE FRAME
+    register_button.grid(row=3, column=1, sticky=E)
+    cancel_button.grid(row=3, column=2, sticky=E)
+    newWin.grab_set()
 
+    newWin.mainloop()
+
+def registerACamperForAnActivity():
+
+    newWin = Toplevel()
+    main2 = Frame(newWin)
+    newWin.geometry("750x800")
+    newWin.maxsize(width=750, height=800)
+    newWin.minsize(width=750, height=800)
 
     #SECOND FRAME
-    second_frame = LabelFrame(main2, relief="sunken", text="Details of activity")
+    second_frame = LabelFrame(main2, relief="sunken", text="Details of activity", bg="#000000")
 
     
 
@@ -216,8 +211,11 @@ def registerACamperWindow():
     dOfAct_labelframe = LabelFrame(second_frame, relief="raised")
 
     date_of_activity_label = Label(dOfAct_labelframe, text="Date of activity:")
+   
+    dt1=date(2022,6,1)
+    dt2=date(2022,6,30)
     dateEntryVar = StringVar()
-    date_entry = DateEntry(dOfAct_labelframe, textvariable=dateEntryVar)
+    date_entry = DateEntry(dOfAct_labelframe, textvariable=dateEntryVar, mindate=dt1, maxdate=dt2)
 
 
 
@@ -235,9 +233,9 @@ def registerACamperWindow():
 
 
 
-
+    main2.grid(padx=10, pady=10)
     #GRIDDING FOR SECOND FRAME
-    second_frame.grid(row=2, column=1, padx=30, pady=30, ipadx=30, ipady=30)
+    second_frame.grid(row=1, column=1, padx=30, pady=30, ipadx=30, ipady=30)
 
 
 
@@ -278,14 +276,10 @@ def registerACamperWindow():
     lengthOfAct_labelframe.grid(row=3, column=2, sticky=W)
     hour_of_activity.grid(row=1, column=1)
 
-
-    #BUTTONS THAT ARE COMPLETELY OUT OF THE FRAME
-    register_button.grid(row=3, column=1, sticky=E)
-    cancel_button.grid(row=3, column=2, sticky=E)
     newWin.grab_set()
 
     newWin.mainloop()
-    
+
     
     
 def findACamperWindow():
@@ -411,6 +405,8 @@ right_arrow_image = ImageTk.PhotoImage(flipped_left)
 #Buttons 
 register_a_camper_button = Button(mainframe, text="Register a camper", width=20, height=3, command=registerACamperWindow)
 
+register_a_camper_for_an_activity_button = Button(mainframe, text="Register a camper \nfor an activity", width=20, height=3, command=registerACamperForAnActivity)
+
 find_a_camper_button = Button(mainframe, text="Find a camper", width=20, height=3, command=findACamperWindow)
 
 see_list_of_activities_button = Button(mainframe, text="See list of activites", width=20, height=3)
@@ -455,6 +451,7 @@ mainframe.grid(padx=50, pady=50)
 #Buttons(IPADX AND IPADY COULD BE USED FOR SIZING)
 register_a_camper_button.grid(row=1, column=1, sticky=W)
 
+register_a_camper_for_an_activity_button.grid(row=2, column=1, sticky=W)
 find_a_camper_button.grid(row=4, column=1, sticky=W)
 
 see_list_of_activities_button.grid(row=5, column=1, sticky=W)
