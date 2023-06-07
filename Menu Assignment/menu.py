@@ -2,34 +2,39 @@ from tkinter import *
 from tkinter.messagebox import *
 from datetime import *
 from PIL import ImageTk, Image, ImageOps
+from tkcalendar import DateEntry
+#bruh this code is getting out of hand I legitimately can't think of a good way to somehow tinysize these things.
+#Attempted to think about how I could downsize everything here only to realize that there would be a LOT of trouble customizing each widget if I had done so.
+
+
 def registerACamperWindow():
     #Basics
     newWin = Toplevel()
     main2 = Frame(newWin)
-    newWin.geometry("750x600")
-    newWin.maxsize(width=750, height=600)
-    newWin.minsize(width=750, height=600)
+    newWin.geometry("750x800")
+    newWin.maxsize(width=750, height=800)
+    newWin.minsize(width=750, height=800)
         
     #I added a lot of labelframes so that if I don't see that the menu looks good, I can easily adjust positions and change the menu
     
     #WIDGETS
-    first_frame = LabelFrame(main2, text="Camper's personal information", relief="sunken")
+    first_frame = LabelFrame(main2, text="Camper's personal information", relief="sunken")######################### FRAME
 
     #First name label 
-    first_name_label_frame = LabelFrame(first_frame, relief="flat")
+    first_name_label_frame = LabelFrame(first_frame, relief="flat")######################### FRAME
     first_name = Label(first_name_label_frame, text="First name: ")
     firstNameEntryVar = StringVar()
     first_name_entry = Entry(first_name_label_frame, width=30)
 
     #Second name label
-    last_name_label_frame = LabelFrame(first_frame, relief="flat")
+    last_name_label_frame = LabelFrame(first_frame, relief="flat")######################### FRAME
     last_name = Label(last_name_label_frame, text="Last name: ")
     lastNameEntryVar = StringVar()
     last_name_entry = Entry(last_name_label_frame, width=30)
 
 
     #Sex select
-    Soption_frame = LabelFrame(first_frame, relief="sunken")
+    Soption_frame = LabelFrame(first_frame, relief="sunken")######################### FRAME
     sex_option_label = Label(Soption_frame, text="Sex:")
 
     maleOrFemaleOrOther = StringVar()
@@ -39,7 +44,7 @@ def registerACamperWindow():
     other_radio_button = Radiobutton(Soption_frame, variable=maleOrFemaleOrOther, value="Other", text="Other")
 
     #DateofBirth
-    doption_frame = LabelFrame(first_frame, relief="flat")
+    doption_frame = LabelFrame(first_frame, relief="flat")######################### FRAME
     date_of_birth_label = Label(doption_frame, text="Date of birth:")
     tiny_y_label = Label(doption_frame, text="Y:")
     tiny_y_entry = Entry(doption_frame, width=5)
@@ -49,7 +54,7 @@ def registerACamperWindow():
     tiny_d_entry = Entry(doption_frame, width=5)
 
     #Age 
-    age_frame = LabelFrame(first_frame, relief="flat")
+    age_frame = LabelFrame(first_frame, relief="flat")######################### FRAME
     age_label = Label(age_frame, text="Age:")
     ageVal = IntVar()
     ageVal.set(0)
@@ -57,16 +62,11 @@ def registerACamperWindow():
     age_display = Label(age_frame, textvariable=ageVal, width=6, bg="#ffffff", relief="sunken") 
 
     
-    #Phonenumber
-    contact_labelframe = LabelFrame(first_frame, relief="flat")
-    phone_num_label = Label(contact_labelframe, text="Phone Number:")
-    phone_num_entry = Entry(contact_labelframe, width=30)
-    work_num_label = Label(contact_labelframe, text="Work Number:")
-    work_num_entry = Entry(contact_labelframe, width=30)
+    
 
 
     #Medical info 
-    medicalinfo_labelframe = LabelFrame(first_frame, relief="flat", text="Medical information")
+    medicalinfo_labelframe = LabelFrame(first_frame, relief="flat", text="Medical information")######################### FRAME
     detailsOfMedIssue = StringVar()
     detailsOfMedIssue.set("")
     details_entry = Entry(medicalinfo_labelframe, textvariable=detailsOfMedIssue, width=50)
@@ -76,11 +76,43 @@ def registerACamperWindow():
     cancel_button = Button(main2, text="Cancel")
 
 
+    #Campsite
+    campsite_frame = LabelFrame(first_frame, relief="flat")
+    campsite_title = Label(campsite_frame, text="Campsite and location")
+    campsite_label = Label(campsite_frame, text="Campsite")
+    campsites = ["Genizadien", "Raziadien", "Phasmacosa"]
+    campsiteList = StringVar()
+    campsiteList.set("Genizadien")
+    campsite_location = OptionMenu(campsite_frame, campsiteList, *campsites)
 
-    #GRIDDING
+    #Cabin number
+    cabin_label = Label(campsite_frame, text="Cabin")
+    cabin_list_of_num = []
+    for i in range(1, 11):
+        cabin_list_of_num.append(i)
+    cabin_number = IntVar()
+    cabin_number.set(1)
+    cabin_number_spinbox = Spinbox(campsite_frame, textvariable=cabin_number, values=cabin_list_of_num)
+
+    #Unit number
+    unit_label = Label(campsite_frame, text="Unit")
+    unit_list_of_num = []
+    for i in range(1, 31):
+        unit_list_of_num.append(i)
+
+    unit_number = IntVar()
+    unit_number.set(1)
+    unit_number_spinbox = Spinbox(campsite_frame, textvariable=unit_number, values=unit_list_of_num)
+
+
+
+
+
+
+    #GRIDDING FOR FRIST FRAME
     main2.grid(padx=50, pady=50)
     #First frame
-    first_frame.grid(row=1, column=1, padx=30, pady=30, ipadx=20, ipady=30)
+    first_frame.grid(row=1, column=1, padx=30, pady=30, ipadx=20, ipady=30)######################### FRAME
 
     ###First name label frame
     first_name_label_frame.grid(row=1, column=1, pady=10)#FRAME FOR BOTH WIDS
@@ -93,14 +125,14 @@ def registerACamperWindow():
     last_name_entry.grid(row=1, column=2)
 
     ###Male or female label frame
-    Soption_frame.grid(row=3, column=1, columnspan=2, sticky=W, pady=5, padx=20)
+    Soption_frame.grid(row=3, column=1, columnspan=2, sticky=W, pady=5, padx=20)######################### FRAME
     sex_option_label.grid(row=1, column=1)
     male_radio_button.grid(row=1, column=2)
     female_radio_button.grid(row=1, column=3)
     other_radio_button.grid(row=1, column=4)
 
     ###Date
-    doption_frame.grid(row=4, column=1, pady=10, sticky=W)
+    doption_frame.grid(row=4, column=1, pady=10, sticky=W)######################### FRAME
     date_of_birth_label.grid(row=1, column=1)
     tiny_y_label.grid(row=1, column=2)
     tiny_y_entry.grid(row=1, column=3)
@@ -115,66 +147,141 @@ def registerACamperWindow():
     age_display.grid(row=1, column=9)
     ageScaler.grid(row=1, column=10)
 
+    #Campsite location
+    campsite_frame.grid(row=6, column=1, columnspan=4, sticky=EW)######################### FRAME
+    #Title
+    campsite_title.grid(row=1, column=2, sticky=EW)
+    #Campsite
+    campsite_label.grid(row=2, column=1)
+    campsite_location.grid(row=3, column=1)
+    #Cabin
+    cabin_label.grid(row=2, column=2)
+    cabin_number_spinbox.grid(row=3, column=2)
+    #Unit
+    unit_label.grid(row=2, column=3)
+    unit_number_spinbox.grid(row=3, column=3)
 
-    #Phone number
-    contact_labelframe.grid(row=5, column=1, columnspan=2, pady=10, sticky=W)
-    phone_num_label.grid(row=1, column=1)
-    phone_num_entry.grid(row=1, column=2)
-    work_num_label.grid(row=1, column=3)
-    work_num_entry.grid(row=1, column=4)
 
     #Medical info
-    medicalinfo_labelframe.grid(row=6, column=1, columnspan=2, sticky=W)
+    medicalinfo_labelframe.grid(row=5, column=1, columnspan=2, sticky=W)
     details_entry.grid(row=1, column=1, rowspan=1)#Ask the teacher on how you can make a gigantic entry here, without the use of ipady because you need a lot of writing space.
     
 
-    #Second frame
-    second_frame = LabelFrame(main2, relief="sunken")
-
-    #Campsite
-    campsite_label = Label(second_frame, text="Campsite")
-    campsites = ["Genizadien", "Raziadien", "Phasmacosa"]
-    campsiteList = StringVar()
-    campsiteList.set("Genizadien")
-    campsite_Location = Spinbox(second_frame, textvariable=campsiteList, values=campsiteList)
-
-    exact_location_label = Label(second_frame, text="Campsite")
-    exact_location_string = StringVar()
-    exact_location_entry_box = Entry(second_frame, textvariable=exact_location_string)
 
 
-    #Activity
-    activity_label = Label(second_frame, text="Activity")
+
+
+
+
+
+
+
+    #SECOND FRAME
+    second_frame = LabelFrame(main2, relief="sunken", text="Details of activity")
+
+    
+
+
+    #Activity #reminder to attach the activity to a description.
+    activity_frame = LabelFrame(second_frame, relief="raised")
+
+    activity_label = Label(activity_frame, text="Activity")
 
     radio_button_activity_value = StringVar()
 
-    mountain_hiking_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Mountain hiking", text="Mountain hiking")
+    radio_button_activity_value.set("Mountain hiking")
+    mountain_hiking_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Mountain hiking", text="Mountain hiking")
 
-    camping_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Camping", text="Camping")
+    camping_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Camping", text="Camping")
 
-    kayaking_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Kayaking", text="Kayaking")
+    kayaking_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Kayaking", text="Kayaking")
 
-    fishing_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Fishing", text="Fishing")
+    fishing_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Fishing", text="Fishing")
 
-    horseback_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Horseback riding", text="Horseback riding")
+    horseback_riding_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Horseback riding", text="Horseback riding")
 
-    dirt_road_biking_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Dirt road biking", text="Dirt road biking")
+    dirt_road_biking_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Dirt road biking", text="Dirt road biking")
 
-    archery_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Archery", text="Archery")
+    archery_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Archery", text="Archery")
 
-    rockclimbing_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Rockclimbing", text="Rockclimbing")
+    rockclimbing_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Rockclimbing", text="Rockclimbing")
 
-    stargazing_activity = Radiobutton(second_frame, variable=radio_button_activity_value, value="Stargazing", text="Stargazing")
+    stargazing_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Stargazing", text="Stargazing")
 
-    bird_watching = Radiobutton(second_frame, variable=radio_button_activity_value, value="Bird watching", text="Bird watching")
-
-
-    description_label = Label(second_frame, text="Description")
+    bird_watching = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Bird watching", text="Bird watching")
 
 
-    #Register button
-    register_button.grid(row=2, column=1, sticky=E)
-    cancel_button.grid(row=2, column=2, sticky=E)
+
+    #Date of activity
+    dOfAct_labelframe = LabelFrame(second_frame, relief="raised")
+
+    date_of_activity_label = Label(dOfAct_labelframe, text="Date of activity:")
+    dateEntryVar = StringVar()
+    date_entry = DateEntry(dOfAct_labelframe, textvariable=dateEntryVar)
+
+
+
+    #Length of activity
+    lengthOfAct_labelframe = LabelFrame(second_frame, relief="raised")
+    hourListBox = []
+    for i in range(1, 25):
+        hourListBox.append(i)
+    hourIntVar = IntVar()
+    hourIntVar.set(1)
+    hour_of_activity = OptionMenu(lengthOfAct_labelframe, hourIntVar, *hourListBox)
+    colon_for_time_label = Label(lengthOfAct_labelframe, text=" : ")
+
+
+
+
+
+
+    #GRIDDING FOR SECOND FRAME
+    second_frame.grid(row=2, column=1, padx=30, pady=30, ipadx=30, ipady=30)
+
+
+
+    
+
+
+
+
+    #Activities
+    activity_frame.grid(row=2, column=1, sticky=W)######################### FRAME
+
+    activity_label.grid(row=1, column=1, columnspan=2, sticky=EW)
+
+    #First section of activities
+    mountain_hiking_activity.grid(row=2, column=1, sticky=W)
+    camping_activity.grid(row=2, column=2, sticky=W)
+    kayaking_activity.grid(row=2, column=3, stick=W)
+    fishing_activity.grid(row=2, column=4, sticky=W)
+    horseback_riding_activity.grid(row=2, column=5, sticky=W)
+
+    #Second section of activities
+    dirt_road_biking_activity.grid(row=3, column=1, sticky=W)
+    archery_activity.grid(row=3, column=2, sticky=W)
+    rockclimbing_activity.grid(row=3, column=3, sticky=W)
+    stargazing_activity.grid(row=3, column=4, sticky=W)
+    bird_watching.grid(row=3, column=5, sticky=W)
+
+
+
+
+
+    #Date of activity
+    dOfAct_labelframe.grid(row=3, column=1, sticky=W)######################### FRAME
+    date_of_activity_label.grid(row=1, column=1)
+    date_entry.grid(row=1, column=3)
+
+    #Scheduled time for activity
+    lengthOfAct_labelframe.grid(row=3, column=2, sticky=W)
+    hour_of_activity.grid(row=1, column=1)
+
+
+    #BUTTONS THAT ARE COMPLETELY OUT OF THE FRAME
+    register_button.grid(row=3, column=1, sticky=E)
+    cancel_button.grid(row=3, column=2, sticky=E)
     newWin.grab_set()
 
     newWin.mainloop()
@@ -198,14 +305,19 @@ def findACamperWindow():
         newList = []
         wordsTyped = searchVar.get()
 
-        mega_listbox_of_all_people.delete(0, END)
+        mega_listbox_of_all_people.delete(0, END)#gotta clear everyone to make sure the box doesn't go insane.. Doesn't seem to be working???
+
         if wordsTyped == "":
             megaList.set(CamperList)
         else:
+
+
             #DISABLED BECAUSE IT'S CONSIDERED A BACKUP
             """for i in range(0, len(CamperList)): 
                    if wordsTyped.lower() in CamperList[i].lower():
                    newList.append(CamperList[i])"""
+            
+
             for i in range(0, len(CamperList)):
                 points = 0
                 for j in range(0, len(wordsTyped)):
