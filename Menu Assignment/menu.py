@@ -32,6 +32,7 @@ def registerACamperWindow():
 
         birthdayYear = int(birthday[2])
         birthdayMonth = int(birthday[1])
+        print(birthdayMonth)
         birthdayDay = int(birthday[0])
 
 
@@ -62,6 +63,8 @@ def registerACamperWindow():
         elif medissues == "":
             showerror("Error", "You must type in medical issues, or write none if you don't have any!")
         elif supposedAge < realAge or supposedAge > realAge:
+            if supposedAge > 0:
+                showerror("Error", "Bro you can't be born in the future.")
             showerror("Error", f"Curious how you say that you're born on {dateOfBirth.get()} yet you say that you're {realAge}, despite calculations showing that you're supposed to be {supposedAge}")
         else:
             #Making the full name
@@ -235,44 +238,93 @@ def registerACamperForAnActivity():
 
 
     def updateAvailableDates():
+        global availDatesForASpecificActivity
+
         rad_val = radio_button_activity_value.get()
         #I chould have changed them into ints but that would make it harder to read :skull: so I didn't!
         
         if rad_val == "Mountain hiking":
             strVar = "Available only on fridays and saturdays"
+            availDatesForASpecificActivity = [2, 3, 9, 10, 16, 17, 23, 24]#Dates of june
 
-        elif rad_val == "Camping":
+        elif rad_val == updateAvailableDates():
             strVar = "Available only on mondays"
+            availDatesForASpecificActivity = [5, 12, 19, 26]
 
         elif rad_val == "Kayaking":
             strVar = "Available only on weekends"
-
+            availDatesForASpecificActivity = [3, 4, 10, 11, 17, 18, 24, 25]
+        
         elif rad_val == "Fishing":
             strVar = "Available only on wednesdays"
+            availDatesForASpecificActivity = [7, 14, 21, 28]
 
         elif rad_val == "Horseback riding":
             strVar = "Available only on weekdays"
+            availDatesForASpecificActivity = [5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 26, 27, 28, 29, 30]
 
         elif rad_val== "Dirt road biking":
             strVar ="Available only on tuesdays"
+            availDatesForASpecificActivity = [5, 12, 19, 26]
 
         elif rad_val == "Archery":
             strVar = "Available only on thursdays and fridays"
+            availDatesForASpecificActivity = [8, 9, 15, 16, 22, 23, 29, 30]
 
         elif rad_val == "Rockclimbing":
             strVar = "Available only on weekends"
+            availDatesForASpecificActivity = [3, 4, 10, 11, 17, 18, 24, 25]
 
         elif rad_val == "Stargazing":
             strVar = "Available only on fridays"
-
+            availDatesForASpecificActivity = [9, 16, 23, 30]
         elif rad_val == "Bird watching":
             strVar = "Available only on thursdays"
-
+            availDatesForASpecificActivity = [8, 15, 22, 29]
+        
+        print(availabilityVar)
         availabilityVar.set(strVar)
         
+    def checkifDateIsValid(dateOfActivity):
+        selectedDayValid = False
+
+        for num in availDatesForASpecificActivity:
+            if dateOfActivity == num:
+                print(dateOfActivity, num)
+                selectedDayValid = True
+
+        return selectedDayValid
 
     def register_camper_for_activity():
+        global availDatesForASpecificActivity
+        #I don't even know how to explain whether if this is even ok anymore
+        createActivityDayProfileForCamper = []
         activity = radio_button_activity_value.get()
+        date_of_activity = dateEntryVar.get()
+        date_list = date_of_activity.split("/")
+        try: 
+            dayOfActivity = int(date_list[0])
+        except: 
+            dayOfActivity = int(date_list[0].replace("0", ""))
+        print(dayOfActivity)
+        #No need to check :skull: listofvalid dates will automatically know if it's valid or not. No need to type if activity is equals to this one thing
+        dayValidOrNot = checkifDateIsValid(dayOfActivity)
+        print(dayValidOrNot)
+        
+
+            
+
+        # needTut = needTutVar.get()
+        # try:
+        #     selectedCamper = mega_listbox_of_all_people.curselection()[0]
+        #     camperActivityInfo = []
+            
+
+        # except:
+        #     showerror("Error", "Please select a camper to register an activity for")
+
+
+        
 
 
         
@@ -311,7 +363,7 @@ def registerACamperForAnActivity():
     stargazing_activity = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Stargazing", text="Stargazing", command=updateAvailableDates)
 
     bird_watching = Radiobutton(activity_frame, variable=radio_button_activity_value, value="Bird watching", text="Bird watching", command=updateAvailableDates)
-
+    
 
     #Available dates
     available_dates_labelframe = LabelFrame(second_frame, relief="flat")
@@ -319,14 +371,14 @@ def registerACamperForAnActivity():
     availabilityVar = StringVar()
     availabilityVar.set("Available on mondays")
     available_dates_display = Label(available_dates_labelframe, textvariable=availabilityVar, width=40, bg="#ffffff")
-
+    updateAvailableDates()
     #Date of activity
     dOfAct_labelframe = LabelFrame(second_frame, relief="flat")
 
     date_of_activity_label = Label(dOfAct_labelframe, text="Date of activity:")
    
-    dt1=date(2022,6,1)
-    dt2=date(2022,6,30)
+    dt1=date(2023,6,1)
+    dt2=date(2023,6,30)
     dateEntryVar = StringVar()
     date_entry = DateEntry(dOfAct_labelframe, textvariable=dateEntryVar, mindate=dt1, maxdate=dt2, state="readonly", date_pattern="dd/mm/yyyy")
 
@@ -337,18 +389,18 @@ def registerACamperForAnActivity():
     supplementary_act_needs_label = Label(supl_labelframe, text="Supplementary activity needs")
 
     needTutVar = StringVar()
-    need_tutorial_check = Checkbutton(supl_labelframe, variable=needTutVar, text="Needs tutorial", onvalue="Needs tutorial", offvalue="")
+    need_tutorial_check = Checkbutton(supl_labelframe, variable=needTutVar, text="Needs tutorial", onvalue="Yes", offvalue="No")
 
     needsAGuardianVar = StringVar()
-    need_aguard_check = Checkbutton(supl_labelframe, variable=needsAGuardianVar, text="Needs a guardian", onvalue="Needs a guardian", offvalue="")
+    need_aguard_check = Checkbutton(supl_labelframe, variable=needsAGuardianVar, text="Needs a guardian", onvalue="Yes", offvalue="No")
 
     needsAdditionalToolsVar = StringVar()
-    need_additionaltools_check = Checkbutton(supl_labelframe, variable=needsAdditionalToolsVar, text="Needs additional tools", onvalue="Needs additional tools", offvalue="")
+    need_additionaltools_check = Checkbutton(supl_labelframe, variable=needsAdditionalToolsVar, text="Needs additional tools", onvalue="Yes", offvalue="No")
 
 
     tiny_button_frame = Frame(main2)
-    register_button = Button(tiny_button_frame, text="Register for activity", width=20, height=3)
-    cancel_button = Button(tiny_button_frame, text="Cancel", width=20, height=3)
+    register_button = Button(tiny_button_frame, text="Register for activity", width=20, height=3, command=register_camper_for_activity)
+    cancel_button = Button(tiny_button_frame, text="Cancel", width=20, height=3, command= lambda: exitWindow(newWin))
 
     #GRIDDING
     main2.grid(padx=10, pady=10)
